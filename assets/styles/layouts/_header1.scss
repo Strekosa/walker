@@ -1,0 +1,326 @@
+.header {
+  background-color: transparent;
+
+  .brand {
+    max-height: 171px;
+    max-width: 171px;
+    margin-right: 100px;
+  }
+}
+
+.navbar {
+  .navbar-nav {
+    .main-menu-item {
+      list-style: none;
+
+      > a {
+        background: transparent; /* menu item background color */
+        color: #878484; /* menu item text color */
+        text-transform: uppercase;
+        position: relative;
+        -webkit-transition: color 0.2s linear, background 0.2s linear;
+        -moz-transition: color 0.2s linear, background 0.2s linear;
+        -o-transition: color 0.2s linear, background 0.2s linear;
+        transition: color 0.2s linear, background 0.2s linear;
+
+        &:hover,
+        &:focus,
+        &.active {
+          text-decoration: underline;
+        }
+      }
+
+      &:not(:last-child) {
+        @include adaptiv-margin-right(36, 10);
+      }
+
+      .nav-desc {
+        margin-left: 5px;
+        cursor: pointer;
+      }
+    }
+
+    .menu-item-has-children {
+      position: relative;
+
+      .sub-menu {
+        position: absolute;
+        background: #f6f8fd;
+        display: none;
+        width: max-content;
+        min-width: 261px;
+        z-index: 2;
+      }
+
+      .sub-menu-item {
+        text-transform: uppercase;
+        background: transparent;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        transition: 0.2s ease all;
+
+        a {
+          padding: 10px;
+          display: block;
+          -webkit-transition: color 0.2s linear, background 0.2s linear;
+          -moz-transition: color 0.2s linear, background 0.2s linear;
+          -o-transition: color 0.2s linear, background 0.2s linear;
+          transition: color 0.2s linear, background 0.2s linear;
+        }
+
+        .nav-desc {
+          position: absolute;
+          top: 10px;
+          right: 5px;
+          -webkit-transition: color 0.2s linear, background 0.2s linear;
+          -moz-transition: color 0.2s linear, background 0.2s linear;
+          -o-transition: color 0.2s linear, background 0.2s linear;
+          transition: color 0.2s linear, background 0.2s linear;
+        }
+      }
+
+      &:hover {
+        > .sub-menu {
+          display: block;
+        }
+      }
+
+      .menu-depth-1 {
+        left: 0;
+        top: 100%;
+      }
+
+      .menu-depth-2,
+      .menu-depth-3 {
+        top: 0;
+        left: 100%;
+      }
+
+      .menu-item-depth-1,
+      .menu-item-depth-2,
+      .menu-item-depth-3 {
+        font-size: 16px;
+
+        &:hover,
+        &:focus,
+        &.active {
+          background-color: darken(#f6f8fd, 10%);
+        }
+      }
+    }
+
+    &.dropdown {
+      .menu-item-has-children {
+        &.open {
+          > .sub-menu {
+            display: block;
+          }
+        }
+
+        .menu-depth-1 {
+          left: 0;
+          top: 100%;
+        }
+
+        .menu-depth-2,
+        .menu-depth-3 {
+          position: initial;
+        }
+
+        .menu-item-depth-2 {
+          > a {
+            padding-left: 30px;
+          }
+        }
+
+        .menu-item-depth-3 {
+          > a {
+            padding-left: 50px;
+          }
+        }
+
+        .menu-item-depth-1,
+        .menu-item-depth-2,
+        .menu-item-depth-3 {
+          > a {
+            &:hover,
+            &:focus,
+            &.active {
+              background-color: darken(#f6f8fd, 10%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    &__row {
+      justify-content: space-between;
+    }
+  }
+
+  body.lock {
+    overflow: hidden;
+  }
+
+  .navbar {
+    .navbar-toggler {
+      display: block;
+      position: relative;
+      width: 24px;
+      height: 18px;
+      z-index: 3;
+      background-color: transparent;
+      border: none;
+
+      span {
+        position: absolute;
+        background-color: $text-color;
+        left: 0;
+        width: 24px;
+        height: 2px;
+        top: 8px;
+        transition: all 0.3s ease 0s;
+      }
+    }
+
+    .navbar-toggler::before,
+    .navbar-toggler::after {
+      content: '';
+      background-color: $text-color;
+      position: absolute;
+      height: 2px;
+      left: 0;
+      transition: all 0.3s ease 0s;
+    }
+
+    .navbar-toggler::before {
+      top: 0;
+      width: 24px;
+    }
+
+    .navbar-toggler::after {
+      bottom: 0;
+      width: 24px;
+    }
+
+    .navbar-toggler.active span {
+      transform: scale(0);
+    }
+
+    .navbar-toggler.active::before {
+      transform: rotate(45deg);
+      top: 7px;
+    }
+
+    .navbar-toggler.active::after {
+      transform: rotate(-45deg);
+      bottom: 9px;
+      width: 24px;
+    }
+  }
+
+  .navbar-collapse {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    transition: all 0.4s ease;
+    background: #f6f8fd;
+    padding: 70px 5% 20px;
+    height: 100%;
+
+    .navbar-nav {
+      flex-direction: column;
+      margin-bottom: 50px;
+      margin-top: 20px;
+
+      .main-menu-item {
+        font-size: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+
+        > a {
+          display: block;
+          width: 100%;
+          font-weight: 600;
+          font-size: 18px;
+          padding: 10px;
+        }
+
+        &:hover,
+        &:focus,
+        &.active {
+          > a {
+            background-color: darken(#f6f8fd, 10%);
+          }
+        }
+
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+
+        .nav-desc {
+          position: absolute;
+          top: 10px;
+          right: 5px;
+          -webkit-transition: color 0.2s linear, background 0.2s linear;
+          -moz-transition: color 0.2s linear, background 0.2s linear;
+          -o-transition: color 0.2s linear, background 0.2s linear;
+          transition: color 0.2s linear, background 0.2s linear;
+        }
+      }
+
+      .menu-item-has-children {
+        .menu-item-depth-1 {
+          > a {
+            padding-left: 30px;
+          }
+        }
+
+        .menu-item-depth-2 {
+          > a {
+            padding-left: 50px;
+          }
+        }
+
+        .menu-item-depth-3 {
+          > a {
+            padding-left: 70px;
+          }
+        }
+
+        .menu-item-depth-2,
+        .menu-item-depth-3 {
+          &:hover,
+          &:focus,
+          &.active {
+            > a {
+              background-color: darken(#f6f8fd, 10%);
+            }
+          }
+        }
+
+        .sub-menu {
+          width: 100%;
+          position: initial;
+
+          .sub-menu-item {
+            a {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    left: 0;
+    z-index: 2;
+  }
+}
